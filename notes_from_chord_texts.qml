@@ -3,15 +3,15 @@
 //
 //  MuseScore - Chord texts to playable Chord and bass notes
 //
-//  Copyright (C) 2019 PerD - https://github.com/
+//  Copyright (C) 2019 PerD - https://github.com/per-d/notes-from-chord-texts
 //
 //  This program is free software; you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License version 2
 //  as published by the Free Software Foundation and appearing in
 //  the file LICENCE.GPL
 //
-//  documentation: https://github.com/
-//  support:       https://github.com/
+//  documentation: https://github.com/per-d/notes-from-chord-texts
+//  support:       https://github.com/per-d/notes-from-chord-texts
 //
 //=============================================================================
 
@@ -131,11 +131,15 @@ var glb = {
   // 10: harmony -> chord notes, details
   // 15: harmony, line with result
   // etc.  (look in code for first parameter to 'conLog')
-  debugLevels:   [ 0, 1, 15 ],
+  //debugLevels:   [ 0, 4, 41, 42 ],
+  //debugLevels:   [ 0, 1, 4, 10, 11, 15, 44 ],
+  debugLevels:   [ 0, 1, 2, 4, 10, 11, 15, 44 ],
+  //debugLevels:   [ 0, 1, 15 ],
+  //debugLevels:   [ 0, 1, 44 ],
 
   // Name for the debug file, set it to falsy ("", null, false, 0...) or just
   // comment it out if not logging to file
-  //debugFile:     "debug_notes_from_chord_texts",
+  debugFile:     "debug_notes_from_chord_texts",
 
   // If settings dialog should be shown, can be annoying with the dialog when debugging
   // (normally true)
@@ -199,7 +203,7 @@ var glb = {
   //                  the same with 2th (1 octave under 9th) if that is major
   //                  - and not a sus2 chord.
   // used in code and as default in Settings box if used (0 = None)
-  reduceChordsLevel:   0,
+  reduceChordsLevel:   1,
 
   // If 9th chord should imply 7th, 11th imply 9th and 7th etc.
   // used in code and as default in Settings box if used

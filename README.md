@@ -8,6 +8,10 @@ This plugin for [MuseScore 2.0](http://musescore.org/) reads chord (Harmony) tex
 
 The created notes are more of a suggestion, to get it to sound nice it's perhaps a good idea to move some notes one octave up or down, or just remove them.
 
+## Idea from
+
+This plugin was inspired from MuseScore 2.0 plugin [chordsToNotes](https://github.com/berteh/musescore-chordsToNotes).
+
 ## How-To
 
 - [Download](https://github.com/per-d/notes-from-chord-texts/zipball/master) and [install the plugin](https://musescore.org/en/handbook/plugins-0#installation) to your MuseScore 2.0+ plugin folder.
