@@ -2498,7 +2498,7 @@ Dialog {
       Column {
         CheckBox {
           id:   lowIsMinor
-          text: "Lower case keys means minor chords"
+          text: "Lower case keys mean minor chords"
           checked: (!!glb.lowIsMinor)
         }
       }
