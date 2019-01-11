@@ -67,7 +67,7 @@ _Specials_
 
 - The added staves will use instrument "Piano". The staff for bass notes is however using normal G-clef (unlike when adding the instrument in the UI), and the bass notes will recide far down (if "bass notes" is used). After the plugin it's a good idea to change to a F-clef to have it more readable.
 
-- If the score already have enough staves the plugin __will use staff #2 and #3__ (only #2 if "bass notes" isn't used) and __overwrite any notes__ that are already there (for voice 1).  
+- If the score already has enough staves the plugin __will use staff #2 and #3__ (only #2 if "bass notes" isn't used) and __overwrite any notes__ that are already there (for voice 1).  
 To avoid that you must add 2 staves (or 1 if "bass notes" isn't used) yourself as staff #2 and #3 (only #2 if "bass notes" isn't used). Or if you have a melody in e.g. staff #2 you can change that from voice #1 to another voice before you run the plugin and it will not be overwritten.
 
 - Added chord notes (in staff #2) will include also the root note. If "bass notes" is used (staff #3) it will add the root note also as bass note (some octaves down, see __Options__), but if it's a different bass note using "slash" notation it will be that note as bass note.
@@ -92,7 +92,7 @@ Octave `0` starts with C0.
 _"Don't use", D, E, F, G, A or B_  
 `Don't use:` Don't change octave, all in __Octave for bass note__.  
 `D, E, ...:` If the bass note of the chord is under this the bass note will be one octave up relative to __Octave for bass note__.
-- __Lower case keys means minor chords__  
+- __Lower case keys mean minor chords__  
 `c` (lower case) means `Cm` (C minor) and `C` (upper case) means `C` (C major).
 - __Allow add to last harmony (experimental)__  
 E.g. `C` will generate `C-E-G`, and if next chord text is only `7` it's adding the notation to `C` (the last chord) and generating `C-E-G-Bb`. It's the same as writing `C7`. The next can then be `6` which means `C76` (`c7add6`).  
@@ -112,14 +112,14 @@ _13th chord_ : no major 9th, no major 2nd (unless "`sus2`" is used).
 9th chord implies 7th, 11th chord implies 9th and 7th, and 13th chord implies 11th, 9th and 7th. According to [used Chord rules](https://en.wikipedia.org/wiki/Chord_names_and_symbols_(popular_music)).  
 If you use this but want only the 9th for some chord use e.g. `Cadd9`.
 - __Write parsed Harmony texts__  
-The plugin allows different styles of writing chords. When parsing them it tries to change them to "correct" syntax. To see the parsed chord texts use this option.  
+The plugin allows different styles of writing chords. When parsing them it tries to change them to "correct" syntax. To see the parsed chord texts, use this option.  
 If used it will add the parsed chord text as both "Chord text" and as "Staff text", above staff #2, then you can see how MuseScore will show them and also the real text after parsing by the plugin.  
 These will also show ignored parts of the chord text (if any).
 - __Write Chord letters__  
-Write generated notes as letters, can be a help to easy see what notes are generated. It's written as "lyrics" under staff #2 if used, that is becuase the measures ought to be stretched to avoid overlaying.  
+Write generated notes as letters, can be a help to easy see what notes are generated. It's written as "lyrics" under staff #2 if used, that is because the measures ought to be stretched to avoid overlaying.  
 `No:`&nbsp;</dt> Don't use this.  
 `Yes`: Write real notes as e.g. `D-F#-A-C#` for `Dmaj7`.  
-`In C-scale` : Write notes in C-scale, e.g. `C-E-G-B` for `Dmaj7`, to easy recognise the chord.
+`In C-scale` : Write notes in C-scale, e.g. `C-E-G-B` for `Dmaj7`, to easy recognize the chord.
 
 ## Issues
 
