@@ -8,6 +8,11 @@ This plugin for [MuseScore 2.0](http://musescore.org/) reads chord (Harmony) tex
 
 The created notes are more of a suggestion, to get it to sound nice it's perhaps a good idea to move some notes one octave up or down, or just remove them.
 
+This is run with default settings, _before_:
+![Test](https://github.com/per-d/notes-from-chord-texts/raw/master/test/silent_night_test_before.PNG)
+_After_, the 7th in the last chord is manually moved down 1 octave after the plugin:
+![Test](https://github.com/per-d/notes-from-chord-texts/raw/master/test/silent_night_test_after.PNG)
+
 ## Idea from
 
 This plugin was inspired from MuseScore 2.0 plugin [chordsToNotes](https://github.com/berteh/musescore-chordsToNotes).
