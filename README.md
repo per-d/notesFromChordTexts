@@ -138,7 +138,7 @@ If the plugin still crashes even if this is done, then you can report that as an
 
 - For "soft" melodies, e.g. "Silent Night" it sounds better (IMHO) with "pipe organ" for the added chords and "violin" for the melody. If you add the extra staves before the plugin it will use them instead of adding "piano" staves.
 
-- It's a good idea to take make a copy of the score before starting the plugin.
+- It's a good idea to make a copy of the score before starting the plugin.
 
 ## Defaults
 
