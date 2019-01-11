@@ -101,9 +101,9 @@ import MuseScore 1.0
 MuseScore {
 
 version:     "1.0"
-description: "This plugin expands chord texts into Chord and bass notes in" +
+description: "This plugin expands harmonies into chord and bass notes in" +
              " added staves, playable by MuseScore."
-menuPath:    "Plugins.Create Notes from Chord texts"
+menuPath:    "Plugins.Create Notes from Harmonies"
 //requiresScore: true //not supported before 2.1.0, manual checking in mainObject.initLg
 
 /***
@@ -139,7 +139,7 @@ var glb = {
 
   // Name for the debug file, set it to falsy ("", null, false, 0...) or just
   // comment it out if not logging to file
-  debugFile:     "harm_to_chord_bass_debug",
+  debugFile:     "debug_notes_from_chord_texts",
 
   // If settings dialog should be shown, can be annoying with the dialog when debugging
   // (normally true)
@@ -1944,6 +1944,7 @@ function reinitHarmonyTexts(swStartCmd) {
  * @param {Int|Bool} <seqNbr>      opt. Add a number after the debug log name.
  *                                 Int:  use that sequence number.
  *                                 true: increase global sequence number and use that.
+ *                                 (Only used when tracking down strange bug).
  * @param {Bool}     <closeFirst>  opt. If start with closing the debug log file.
  */
 var debugSeqNbr = 1,
@@ -2382,7 +2383,7 @@ function getAddStaves() {
   return res;
 }
 
-property string winTitle: " Chord texts to notes"
+property string winTitle: " Notes from Chord texts"
 
 MessageDialog {
   id:       messageBox
@@ -2464,7 +2465,7 @@ Dialog {
           property variant textArr:  [ "Don't use", "D", "E", "F", "G", "A", "B" ]
           property variant valueArr: [ 0, 2, 4, 5, 7, 9, 11 ]
         }
-        Label { text: "Octave for bass tone:" }
+        Label { text: "Octave for bass note:" }
         ComboBox {
           id:    bassOctave
           model: ListModel { id: bassOctaveList; ListElement { text: "dummy" }}
@@ -2540,7 +2541,7 @@ Dialog {
             id:   reduceChordMax
             text: "Max, as Medium plus:\n" +
                   "-  9th chord: no perfect 5th\n" +
-                  "- 13th chord: no major 9th, no major 2nd unless \"sus2\""
+                  "- 13th chord: no major 9th, no major 2nd (unless \"sus2\")"
             exclusiveGroup: exclId1
             checked: (glb.reduceChordsLevel === 2)
           }
