@@ -167,7 +167,7 @@ var glb = {
   octaveRoot:              0,
 
   // Octave for the bass note from the chord
-  // for Settings box (3 = -2)
+  // for Settings box (3 = -2, 0 = No bass)
   octaveBassDefaultIndex:  3,
   // for the code, gets value from the Settings box if used
   octaveBass:              -2,
@@ -252,9 +252,9 @@ var glb = {
 
   // ignore harmonies that starts with "(" or "[", or ends with "(" (without
   // any earlier "("), parentheses can span over two harmonies.
-  ignoreHarmonyRegex: /^((\(|\[)|[^(]*\)$)/,
+  ignoreHarmonyRegx: /^((\(|\[)|[^(]*\)$)/,
   // [r] "N.C." means "no chord", should be a rest instead
-  noChordRegex:       /^\s*(N\.C\.?)\s*$/i
+  noChordRegx:       /^\s*(N\.C\.?)\s*$/i
 };
 
 mo.glb = glb;
@@ -441,7 +441,7 @@ mo.staffObject = function() {
     // securing String
     if (! harmonyText) harmonyText = "";
     var strM, key, bass;
-    if ((strM = harmonyText.match(glb.noChordRegex))) return strM[1].toUpperCase();
+    if ((strM = harmonyText.match(glb.noChordRegx))) return strM[1].toUpperCase();
     if ((strM = harmonyText.match(/^(([a-g])(([^/]|\/(?![a-g]))*))?((\/)([a-g])(.*))?$/i))) {
       key  = strM[2] || "";
       bass = strM[7] || "";
@@ -960,8 +960,8 @@ mo.staffObject = function() {
     ho.tShp  = +1;
     ho.tShp2 = +2;
 
-    var strM, chordRemain,
-        alterationsRegex = /(omit|add|maj|dom|dim|aug|[b#-+]+)(\d+)/;
+    var strM, chordRemain, isAlter,
+        alterationsRegx = /(omit|add|maj|dom|dim|aug|[b#-+]+)(\d+)/;
 
     /***
      * Main function, will parse a Harmony text and generate pitches for it.
@@ -970,6 +970,7 @@ mo.staffObject = function() {
      */
     ho.harmonyToSemitones = function(harmony, harmonyElem) {
       conLog(10, "harmO, --- parsing harmony: \"", harmony, "\" ---");
+      isAlter = false;
       ho.parseHarmony(harmony, harmonyElem);
       // clean value from last run
       st.lastHarmonyObj = null;
@@ -1013,7 +1014,7 @@ mo.staffObject = function() {
       ho.rootRemain  = "";
 
       // no chord? ("N.C.")
-      if (glb.noChordRegex.test(harmony)) {
+      if (glb.noChordRegx.test(harmony)) {
         ho.noChord = true;
         return true;
       }
@@ -1122,7 +1123,7 @@ mo.staffObject = function() {
           replace(/^(m?)(\d+)(\+|aug)$/,"$1aug$2"). // only [tone] and "+/aug" to "aug[tone]"
           replace(/^(m?)([42])$/,       "$1sus$2"). // only 4 or 2 to "sus[4|2]"
           replace(/sus(?![42])/,        "sus4").    // "sus" with no following 4|2 to "sus4"
-          replace(/(not?|drop)(?=\d)/,  "omit");    // all "no/not/drop[tone]" to "omit[tone]"
+          replace(/(no|drop)(?=\d)/,    "omit");    // all "no/drop[tone]" to "omit[tone]"
 
         // change some alternative writings to more correct, and easier to parse
         // (changes according to [r] - I hope)
@@ -1214,7 +1215,7 @@ mo.staffObject = function() {
           ho.extAlt   = strM[3] || null; // null
           ho.extTone  = strM[4] || null; // "7"
           chordRemain = strM[5];         // "add4"
-          addToAlters(1, 2, 3, 4);
+          addToAlters(ho.extAlt, 1, 2, 3, 4);
 
           // extented tone to numeric
           if (/^\d+$/.test(ho.extTone)) ho.extTone = parseInt(ho.extTone);
@@ -1276,10 +1277,6 @@ mo.staffObject = function() {
           if (ho.extAlt >= 0) ho.seventh -= 1;
         }
       }
-
-      conLog(10, "harmO, ",
-        { slice: [ ho, 'min', 'extTone', 'alter', 'maj', 'dim', 'aug', 'seventh', 'sus' ]}
-        );
 
       // this line will fix the strange crashing for some reason, but not using
       // it, don't want to split up the log file, and it's fixed by starting
@@ -1374,6 +1371,10 @@ mo.staffObject = function() {
       // alterations
       ho.buildAlterations(chordRemain);
 
+      conLog(10, "harmO, ",
+        { slice: [ ho, 'min', 'extTone', 'extAlt', 'alter', 'maj', 'dim', 'aug',
+                   'seventh', 'sus', 'chAlters' ]}
+        );
       return ho.t;
     };
 
@@ -1387,14 +1388,15 @@ mo.staffObject = function() {
       if (! ho.t) ho.t = {};
       var what, tone,
           remain = alterations;
-      while ((strM = remain.match(alterationsRegex))) {
+      isAlter = true;
+      while ((strM = remain.match(alterationsRegx))) {
         what   = strM[1];
         tone   = strM[2];
         remain =
           remain.substring(0, strM.index) +
           remain.substring(strM.index + what.length + tone.length);
-        addToAlters(1, 2);
         conLog(10, "harmO, alter: ", what + tone);
+        addToAlters(1, 2);
         // special for 7th: "dom/add" = "b", dim = "bb" (otherwise "dom" = "maj")
         if (tone === "7") {
           if (what === "dom" || what === "add") {
@@ -1422,11 +1424,12 @@ mo.staffObject = function() {
         if (tone === "7" && ho.t[tone] && ho.t[tone] >= 1) ho.t[tone] -= 1;
       }
       ho.rootRemain += remain;
+      isAlter = false;
       return ho.t;
     };
 
     /***
-     * Gets all semitones for 'self'.
+     * Gets all semitones for 'self', using "tone object".
      * @return {Array} array of semitones (including root)
      */
     ho.toSemitoneNumbers = function() {
@@ -1443,7 +1446,7 @@ mo.staffObject = function() {
       ho.semiLettersInC = [];
       conLog(10, "semiNbrs, ho.t: ", { obj: ho.t }, " ----------");
 
-      // adjust if alterations are "##" or "bb"
+      // adjust if alterations are "##" or "bb" (and "specials" e.g. E# -> F)
       for (tone = 1; tone <= 7; tone++) {
         useTone = tone;
         alt     = ho.t[tone];
@@ -1503,7 +1506,7 @@ mo.staffObject = function() {
         objectToStr(glb.writeChordNotes === 1 ? ho.semiLetters : ho.semiLettersInC).
           replace(/[ \[\]]/g, "").replace(/,/g, "-");
       conLog(15,
-        "semiNbrs, \"", ho.harmony, "\" (", ho.parsedHarmonyS(true), ")",
+        "semiNbrs, \"", ho.harmony, "\" (p: ", ho.parsedHarmonyS(true), ")",
         " semitones: ", { obj: ho.semitones }, " (", { obj: ho.semiLetters },
         text, ")", ""
         );
@@ -1654,17 +1657,23 @@ mo.staffObject = function() {
 
     /***
      * Adds elements from Array <strM> to <ho.chAlters>
-     * @params {Number} <index1, index2, ...>  Indexes for elements to add.
+     * @params {Number} <index0, index1, ...>  Indexes for elements to add.
+     *                  If index0 isn't Number it's for <doParenth>.
      */
     function addToAlters() {
-      var strMInd, text, argInd = 0;
+      var strMInd, text, doParenth, argInd = 0;
+      if (typeof(arguments[argInd]) !== "number") doParenth = arguments[argInd++];
+      conLog(99, "doParenth: ", doParenth);
       text = "";
       while ((strMInd = arguments[argInd++])) { text += (strM[strMInd] || ""); }
       if (! text) return;
       // surround new text with parentheses if it starts with character and "alters"
-      // ends with character
-      if (ho.chAlters  && /[a-z]$/i.test(ho.chAlters) && /^[a-z]/i.test(text))
+      // ends with character or if it's first alter and it's b|#|-|+
+      if (doParenth ||
+          ho.chAlters && /[a-z]$/i.test(ho.chAlters) && /^[a-z]/i.test(text) ||
+          isAlter && ! ho.chAlters && /^[b#+-](?![a-z])/.test(text))
         text = "(" + text + ")";
+      conLog(11, "ho.chAlters: \"", ho.chAlters, "\" + \"", text, "\"");
       ho.chAlters += text;
     }
 
@@ -1846,7 +1855,7 @@ function getSegmentHarmony(segment) {
       // with ")" (with no earlier "("), otherwise keep looking, Harmony that
       // starts with "(", or ends with ")", will be returned below if no "good"
       // is found
-      if (! harmonyElem.text || ! glb.ignoreHarmonyRegex.test(harmonyElem.text)) break;
+      if (! harmonyElem.text || ! glb.ignoreHarmonyRegx.test(harmonyElem.text)) break;
     }
   }
   // (secure null)
@@ -2126,7 +2135,7 @@ mo.mainLg = function() {
 
       // ignore harmonies with text that starts with "(", or ends with ")" without
       // any earlier "(".
-      if (glb.ignoreHarmonyRegex.test(harmonyText)) {
+      if (glb.ignoreHarmonyRegx.test(harmonyText)) {
         conLog(0, "harmony starts with \"(\" or ends with \")\" (without any \"(\"), ignore --->");
         cursor.next();
         continue;
