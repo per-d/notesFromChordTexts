@@ -103,7 +103,7 @@ MuseScore {
 version:     "1.0"
 description: "This plugin expands harmonies into chord and bass notes in" +
              " added staves, playable by MuseScore."
-menuPath:    "Plugins.Create Notes from Harmonies"
+menuPath:    "Plugins.Chords.Notes from Chord texts"
 //requiresScore: true //not supported before 2.1.0, manual checking in mainObject.initLg
 
 /***

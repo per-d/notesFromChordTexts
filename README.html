@@ -396,22 +396,22 @@ blockquote {
 <p>The plugin uses rules in <a href="https://en.wikipedia.org/wiki/Chord_names_and_symbols_(popular_music)">wiki: Chord names and symbols (popular music)</a> (as I understand them). All possible combinations of chords according to rules in that page are recognized and will generate notes.</p>
 <p>The created notes are more of a suggestion, to get it to sound nice it's perhaps a good idea to move some notes one octave up or down, or just remove them.</p>
 <p>This is run with default settings, <em>before</em>:<br>
-<img src="https://github.com/per-d/notes-from-chord-texts/raw/master/test/silent_night_test_before.PNG" alt="Example before"></p>
+<img src="https://github.com/per-d/notesFromChordTexts/raw/master/test/silent_night_test_before.PNG" alt="Example before"></p>
 <p><em>After</em> (the 7th in the last chord is manually moved down 1 octave after the plugin):<br>
-<img src="https://github.com/per-d/notes-from-chord-texts/raw/master/test/silent_night_test_after.PNG" alt="Example after"></p>
-<p><a href="https://github.com/per-d/notes-from-chord-texts/raw/master/test/test_chords_after.PNG">Click to see another example</a> that uses both options <strong>Write parsed Harmony texts</strong> and <strong>Write Chord letters</strong> with &quot;<code>Yes</code>&quot;. This example also shows some alternative ways of writing chords, and have some comments added.</p>
+<img src="https://github.com/per-d/notesFromChordTexts/raw/master/test/silent_night_test_after.PNG" alt="Example after"></p>
+<p><a href="https://github.com/per-d/notesFromChordTexts/raw/master/test/test_chords_after.PNG">Click to see another example</a> that uses both options <strong>Write parsed Harmony texts</strong> and <strong>Write Chord letters</strong> with &quot;<code>Yes</code>&quot;. This example also shows some alternative ways of writing chords, and have some comments added.</p>
 <h2 id="idea-from">Idea from</h2>
 <p>This plugin was inspired from MuseScore 2.x plugin <a href="https://github.com/berteh/musescore-chordsToNotes">Generate Notes from Chords annotations</a>.</p>
 <h2 id="how-to">How-To</h2>
 <ul>
-<li><a href="https://github.com/per-d/notes-from-chord-texts/zipball/master">Download</a> and <a href="https://musescore.org/en/handbook/plugins-0#installation">install the plugin</a> to your MuseScore 2.0+ plugin folder.</li>
-<li>Only the <a href="https://github.com/per-d/notes-from-chord-texts/raw/master/notes_from_chord_texts.qml">qml file</a> is needed, but it can be a good idea to copy the folder into the plugin folder, partly to use test scores in sub folder <a href="https://github.com/per-d/notes-from-chord-texts/tree/master/test">test</a>, and in the future perhaps translation files will be added.</li>
-<li><a href="https://musescore.org/en/handbook/plugins#enable-disable-plugins">Enable</a> the plugin &quot;Create Notes from Chord texts&quot;, and restart MuseScore.</li>
+<li><a href="https://github.com/per-d/notesFromChordTexts/zipball/master">Download</a> and <a href="https://musescore.org/en/handbook/plugins-0#installation">install the plugin</a> to your MuseScore 2.0+ plugin folder.</li>
+<li>Only the <a href="https://github.com/per-d/notesFromChordTexts/raw/master/notesFromChordTexts.qml">qml file</a> is needed, but it can be a good idea to copy the folder into the plugin folder, partly to use test scores in sub folder <a href="https://github.com/per-d/notesFromChordTexts/tree/master/test">test</a>, and in the future perhaps translation files will be added.</li>
+<li><a href="https://musescore.org/en/handbook/plugins#enable-disable-plugins">Enable</a> the plugin &quot;notesFromChordTexts&quot;, and restart MuseScore.</li>
 <li>Open a score with chord texts.</li>
-<li>Run the plugin via <code>plugin &gt; Create Notes from Chord texts</code></li>
+<li>Run the plugin via <code>plugin &gt; Chords &gt; Notes from Chord texts</code></li>
 <li>The plugin adds two staves*, one for chord notes (called root chord) and one for bass notes*.</li>
-<li>*The plugin starts with an option box, there you can set the options you want, see <a href="#options-id"><strong>Options</strong></a> below. E.g. don't add bass notes.</li>
-<li>The plugin will try to close the score when finished, then asking for <code>&lt;Save&gt;</code>, <code>&lt;Discard&gt;</code> or <code>&lt;Cancel&gt;</code>. The reason is that the score will be in a bad state after the plugin have finished, and the added notes are not playable yet.</li>
+<li>*The plugin starts with an option box, there you can set the options you want, see <a href="#options"><strong>Options</strong></a> below. E.g. don't add bass notes.</li>
+<li>The plugin will try to close the score when finished, then asking for <code>&lt;Save&gt;</code>, <code>&lt;Discard&gt;</code> or <code>&lt;Cancel&gt;</code>. The reason is that the score will be in a bad state after the plugin have finished, and the added notes are not playable yet. So do save/close.</li>
 <li>Reopen the score and listen to the music.</li>
 <li>To easy change the added notes see <a href="https://musescore.org/en/handbook/note-input">MuseScore shortcuts</a>, e.g. ctrl up/down to move a note up/down one octave.</li>
 </ul>
@@ -420,8 +420,8 @@ blockquote {
 <p><strong>Allowed synonyms for:</strong><br>
 <em>Key signatures</em></p>
 <ul>
-<li><code>...b</code> : ...es/s (&quot;full german&quot; notation for <code>b</code>, e.g. <code>Des</code> means <code>Db</code>, <code>Eb</code> and <code>Ab</code> has only &quot;s&quot;; <code>Es</code> and <code>As</code>)</li>
-<li><code>...#</code> : ...is (&quot;full german&quot; notation for <code>#</code>, e.g. <code>Dis</code> means <code>D#</code>)<br>
+<li><code>...b:</code> ...es/s (&quot;full german&quot; notation for <code>b</code>, e.g. <code>Des</code> means <code>Db</code>, <code>Eb</code> and <code>Ab</code> has only &quot;s&quot;; <code>Es</code> and <code>As</code>)</li>
+<li><code>...#:</code> ...is (&quot;full german&quot; notation for <code>#</code>, e.g. <code>Dis</code> means <code>D#</code>)<br>
 (both &quot;full german&quot; and normal notation works at the same time)</li>
 </ul>
 <p><em>Extensions</em></p>
@@ -438,15 +438,15 @@ blockquote {
 <ul>
 <li><code>b:</code>  ♭ (Unicode), -, dim</li>
 <li><code>#:</code>  ♯ (Unicode), +, aug</li>
-<li><code>add:</code> dom, maj (it's <strong>not</strong> the same as <code>#</code> according to <a href="https://en.wikipedia.org/wiki/Chord_names_and_symbols_(popular_music)">used Chord rules</a>)</li>
-<li><code>omit</code> : no, drop</li>
+<li><code>add:</code> dom, maj (&quot;maj&quot; is <strong>not</strong> the same as <code>#</code> according to <a href="https://en.wikipedia.org/wiki/Chord_names_and_symbols_(popular_music)">used Chord rules</a>)</li>
+<li><code>omit:</code> no, drop</li>
 </ul>
 <p><em>Alternative syntax and short ways</em></p>
 <ul>
 <li>ending <code>0</code> same as <code>07</code></li>
 <li>alone <code>^</code> same as <code>maj7</code> (but not alone <code>maj</code>; <code>Cmaj</code> = <code>C</code>, <code>C^</code> = <code>Cmaj7</code>)</li>
 <li>only <code>[tone]+/aug</code> same as <code>aug[tone]</code></li>
-<li><code>N.C.</code> (no chord) allows <code>N.C</code>, <code>n.c.</code> and <code>n.c</code></li>
+<li><code>N.C.</code> (no chord) also allows <code>N.C</code>, <code>n.c.</code> and <code>n.c</code></li>
 </ul>
 <p><em>Specials</em></p>
 <ul>
@@ -469,14 +469,14 @@ blockquote {
 To avoid that you must add 2 staves (or 1 if &quot;bass notes&quot; isn't used) yourself as staff #2 and #3 (only #2 if &quot;bass notes&quot; isn't used). Or if you have a melody in e.g. staff #2 you can change that from voice #1 to another voice before you run the plugin and it will not be overwritten.</p>
 </li>
 <li>
-<p>Added chord notes (in staff #2) will include also the root note. If &quot;bass notes&quot; is used (staff #3) it will add the root note also as bass note (some octaves down, see <a href="#options-id"><strong>Options</strong></a>), but if it's a different bass note using &quot;slash notation&quot; it will be that note as bass note.</p>
+<p>Added chord notes (in staff #2) will include also the root note. If &quot;bass notes&quot; is used (staff #3) it will add the root note also as bass note (some octaves down, see <a href="#options"><strong>Options</strong></a>), but if it's a different bass note using &quot;slash notation&quot; it will be that note as bass note.</p>
 </li>
 <li>
 <p>If the plugin can't parse some part of the chord text it will just ignore that. In that case the ignored part is shown as &quot;Staff text&quot; above staff #2.</p>
 </li>
 </ul>
-<h2 id="options-id">Options</h2>
-<p><a href="https://github.com/per-d/notes-from-chord-texts/raw/master/test/screenshot.PNG">Show screenshot of the options box</a><br>
+<h2 id="options">Options</h2>
+<p><a href="https://github.com/per-d/notesFromChordTexts/raw/master/test/screenshot.PNG">Show screenshot of the options box</a><br>
 The plugin starts with an option box, there you have these choices:</p>
 <ul>
 <li>
@@ -505,7 +505,7 @@ Octave <code>0</code> starts with C0.</p>
 <li>
 <p><strong>Lower case keys mean minor chords</strong><br>
 <code>c</code> (lower case) means <code>Cm</code> (C minor) and <code>C</code> (upper case) means <code>C</code> (C major).<br>
-This is <strong>not</strong> dependent on the MuseScore setting &quot;<em>Lower case minor chords</em>&quot;. Normally all chord keys are shown in MuseScore with upper case no matter if it's typed in with lower or upper case (if &quot;<em>Automatic Capitalization</em>&quot; is used). If the MuseScore setting &quot;<em>Lower case minor chords</em>&quot; is used they are shown as they are typed in. If the setting is used for the plugin it will treat lower case keys as minor chords even if it's not set in MuseScore.</p>
+This is <strong>not</strong> dependent on the MuseScore setting &quot;<em>Lower case minor chords</em>&quot;. Normally all chord keys are shown in MuseScore with upper case no matter if it's typed in with lower or upper case (if &quot;<em>Automatic Capitalization</em>&quot; is used). If the MuseScore setting &quot;<em>Lower case minor chords</em>&quot; is used they are shown as they are typed in. If the setting is used for the plugin it will treat lower case keys as minor chords even if it's not set in MuseScore and therefore shown in MuseScore with upper case.</p>
 </li>
 <li>
 <p><strong>Allow add to last harmony (experimental)</strong><br>
@@ -545,7 +545,7 @@ Write generated notes as letters, can be a help to easy see what notes are gener
 </li>
 </ul>
 <h2 id="issues">Issues</h2>
-<p>Kindly report issues or requests in the <a href="https://github.com/per-d/notes-from-chord-texts/issues">issue tracker</a>.</p>
+<p>Kindly report issues or requests in the <a href="https://github.com/per-d/notesFromChordTexts/issues">issue tracker</a>.</p>
 <p>If you find something that doesn't follow <a href="https://en.wikipedia.org/wiki/Chord_names_and_symbols_(popular_music)">used Chord rules</a>, or something in that page that isn't correct or missing, I would appreciate if you report that.</p>
 <h2 id="known-issues">Known issues</h2>
 <p>(won't fix)</p>
@@ -568,7 +568,7 @@ If the plugin still crashes even if this is done, then you can report that as an
 </li>
 </ul>
 <h2 id="defaults">Defaults</h2>
-<p>The &quot;option box&quot; is using default values. They are defined in the code in <em>notes_from_chord_texts.qml</em>. It's kind of easy to change the default values if you know javascript programming, they are all defined in the top when defining <code>var glb</code>.</p>
+<p>The &quot;option box&quot; is using default values. They are defined in the code in <em>notesFromChordTexts.qml</em>. It's kind of easy to change the default values if you know javascript programming, they are all defined in the top when defining <code>var glb</code>.</p>
 <p>The default values are optimized for a nice sound for soft melodies when using &quot;violin&quot; for the melody and &quot;pipe organ&quot; for the added chord and bass notes, IMHO.</p>
 
 </body>
