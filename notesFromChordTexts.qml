@@ -2450,7 +2450,20 @@ Dialog {
           "In that case try to first start it with no Score opened,\n" +
           "and just click ok.\n" +
           "Then you can open a Score and it seems to work well.\n" +
-          "Don't know why.\n"
+          "Don't know why."
+      }
+
+      Text {
+        text: "<a href=\"https://github.com/per-d/notes-from-chord-texts#options\"" +
+            " style=\"text-decoration: none;\">" +
+            "> Help and information</a>"
+        textFormat: Text.RichText
+        onLinkActivated: Qt.openUrlExternally(link)
+        MouseArea {
+          anchors.fill: parent
+          acceptedButtons: Qt.NoButton
+          cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
+        }
       }
 
       GridLayout {
