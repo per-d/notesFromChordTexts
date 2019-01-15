@@ -8,7 +8,7 @@
 
 This plugin for [MuseScore 2.x](http://musescore.org/) reads chord (Harmony) texts and creates Chord notes in one staff, and bass note in another one. The created notes have correct durations according to the duration of the written chord, and are playable by MuseScore.
 
-The plugin uses rules in [wiki: Chord names and symbols (popular music)](https://en.wikipedia.org/wiki/Chord_names_and_symbols_(popular_music)) (as I understand them). All possible combinations of chords according to rules in that page are recognized and will generate notes.
+The plugin uses rules in [wiki: Chord names and symbols (popular music)][1] (as I understand them). All possible combinations of chords according to rules in that page are recognized and will generate notes.
 
 The created notes are more of a suggestion, to get it to sound nice it's perhaps a good idea to move some notes one octave up or down, or just remove them.
 
@@ -38,7 +38,7 @@ This plugin was inspired from MuseScore 2.x plugin [Generate Notes from Chords a
 - To easy change the added notes see [MuseScore shortcuts](https://musescore.org/en/handbook/note-input), e.g. ctrl up/down to move a note up/down one octave.
 
 ## Rules
-Chords can be written in different ways, this plugin allows all alternatives described in [used Chord rules](https://en.wikipedia.org/wiki/Chord_names_and_symbols_(popular_music)), and some more. "Chord containing quarter tones" and "Polychords" are not implemented though.
+Chords can be written in different ways, this plugin allows all alternatives described in [used Chord rules][1], and some more. "Chord containing quarter tones" and "Polychords" are not implemented though.
 
 __Allowed synonyms for:__
 
@@ -55,7 +55,7 @@ _Extensions_
 _Alterations_
 - `b:` &emsp;♭ (Unicode), -, dim
 - `#:` &emsp;♯ (Unicode), +, aug
-- `add:` dom, maj ("maj" is __not__ the same as `#` according to [used Chord rules](https://en.wikipedia.org/wiki/Chord_names_and_symbols_(popular_music)))
+- `add:` dom, maj (`maj` is not the same as `#` according to [used Chord rules][1])
 - `omit:` no, drop
 
 _Alternative syntax and short ways_
@@ -112,7 +112,7 @@ E.g. `C` will generate `C-E-G`, and if next chord text is only `7` it's adding t
 It's experimental, and only there because a friend of mine uses that notation.
 
 - __Reduce chords__  
-Reducing chords according to [used Chord rules](https://en.wikipedia.org/wiki/Chord_names_and_symbols_(popular_music)) where it mention "... is often omitted".  
+Reducing chords according to [used Chord rules][1] where it mention "... is often omitted".  
 `None:`  
 Don't reduce chords.  
 `Medium:`  
@@ -124,7 +124,7 @@ for _9th chord_ : no perfect 5th.
 for _13th chord_ : no major 9th, no major 2nd (unless "`sus2`" is used).
 
 - __9th, 11th and 13th extension implies lower__  
-9th chord implies 7th, 11th chord implies 9th and 7th, and 13th chord implies 11th, 9th and 7th. According to [used Chord rules](https://en.wikipedia.org/wiki/Chord_names_and_symbols_(popular_music)).  
+9th chord implies 7th, 11th chord implies 9th and 7th, and 13th chord implies 11th, 9th and 7th. According to [used Chord rules][1].  
 If you use this but want only the 9th for some chord use e.g. `Cadd9`.
 
 - __Write parsed Harmony texts__  
@@ -158,7 +158,7 @@ It will then __overwrite any notes__ that are already there, for voice #1. Notes
 
 Kindly report issues or requests in the [issue tracker](https://github.com/per-d/notesFromChordTexts/issues).
 
-If you find something that doesn't follow [used Chord rules](https://en.wikipedia.org/wiki/Chord_names_and_symbols_(popular_music)), or something in that page that isn't correct or missing, I would appreciate if you report that.
+If you find something that doesn't follow [used Chord rules][1], or something in that page that isn't correct or missing, I would appreciate if you report that.
 
 ## Known issues
 (won't fix)  
@@ -178,3 +178,5 @@ If the plugin still crashes even if this is done, then you can report that as an
 The "Options box" is using default values. They are defined in the code in _notesFromChordTexts.qml_. It's kind of easy to change the default values if you know javascript programming, they are all defined in the top when defining `var glb`.
 
 The default values are optimized for a nice sound for soft melodies when using "violin" for the melody and "pipe organ" for the added chord and bass notes, IMHO.
+
+[1]: https://en.wikipedia.org/wiki/Chord_names_and_symbols_(popular_music)
