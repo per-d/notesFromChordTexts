@@ -417,13 +417,7 @@ blockquote {
 </ul>
 <h2 id="rules">Rules</h2>
 <p>Chords can be written in different ways, this plugin allows all alternatives described in <a href="https://en.wikipedia.org/wiki/Chord_names_and_symbols_(popular_music)">used Chord rules</a>, and some more. &quot;Chord containing quarter tones&quot; and &quot;Polychords&quot; are not implemented though.</p>
-<p><strong>Allowed synonyms for:</strong><br>
-<em>Key signatures</em></p>
-<ul>
-<li><code>...b:</code> ...es/s (&quot;full german&quot; notation for <code>b</code>, e.g. <code>Des</code> means <code>Db</code>, <code>Eb</code> and <code>Ab</code> has only &quot;s&quot;; <code>Es</code> and <code>As</code>)</li>
-<li><code>...#:</code> ...is (&quot;full german&quot; notation for <code>#</code>, e.g. <code>Dis</code> means <code>D#</code>)<br>
-(both &quot;full german&quot; and normal notation works at the same time)</li>
-</ul>
+<p><strong>Allowed synonyms for:</strong></p>
 <p><em>Extensions</em></p>
 <ul>
 <li><code>m:</code>  − (Unicode hx2212), -, min, minor</li>
@@ -462,21 +456,17 @@ blockquote {
 <p>The plugin uses note signatures according to the chord extensions for the added notes. E.g. <code>Cdim</code> will add <code>C-Eb-Gb</code> and not <code>F#</code>, and <code>Caug</code> will add <code>C-E-G#</code> and not <code>Ab</code>. But double key signatures and &quot;specials&quot; are changed, e.g. <code>Cdim7</code> will add <code>C-Eb-Gb-A</code> <strong>not</strong> <code>Bbb</code>, and <code>C#aug</code> will add <code>C#-F-A</code> <strong>not</strong> <code>C#-E#-G##</code>.</p>
 </li>
 <li>
-<p>The added staves will use instrument &quot;Piano&quot;. The staff for bass notes is however using normal G-clef (unlike when adding the instrument in the UI), and the bass notes will reside far down (if &quot;bass notes&quot; is used). After the plugin it's a good idea to change to a F-clef to have it more readable.</p>
-</li>
-<li>
-<p>If the score already has enough staves the plugin <strong>will use existing staff #2 and #3</strong> (only #2 if &quot;bass notes&quot; isn't used) and <strong>overwrite any notes</strong> that are already there (for voice 1).<br>
-To avoid that you must add 2 staves (or 1 if &quot;bass notes&quot; isn't used) yourself as staff #2 and #3 (only #2 if &quot;bass notes&quot; isn't used). Or if you have a melody in e.g. staff #2 you can change that from voice #1 to another voice before you run the plugin and it will not be overwritten.</p>
-</li>
-<li>
-<p>Added chord notes (in staff #2) will include also the root note. If &quot;bass notes&quot; is used (staff #3) it will add the root note also as bass note (some octaves down, see <a href="#options"><strong>Options</strong></a>), but if it's a different bass note using &quot;slash notation&quot; it will be that note as bass note.</p>
-</li>
-<li>
 <p>If the plugin can't parse some part of the chord text it will just ignore that. In that case the ignored part is shown as &quot;Staff text&quot; above staff #2.</p>
+</li>
+<li>
+<p>Added Chord notes (in staff #2) will include also the root note. If &quot;bass notes&quot; is used (staff #3) it will add the root note also as bass note (some octaves down, see <a href="#options"><strong>Options</strong></a>), but if it's a different bass note using &quot;slash notation&quot; it will be that note as bass note.</p>
+</li>
+<li>
+<p><strong>&quot;German&quot; and &quot;Full German&quot;</strong>. The plugin handles these variants, as long as it's correctly set in MuseScore.</p>
 </li>
 </ul>
 <h2 id="options">Options</h2>
-<p><a href="https://github.com/per-d/notesFromChordTexts/raw/master/test/screenshot.PNG">Show screenshot of the options box</a><br>
+<p><a href="https://github.com/per-d/notesFromChordTexts/raw/master/test/screenshot.PNG">Show screenshot of the Options box</a><br>
 The plugin starts with an option box, there you have these choices:</p>
 <ul>
 <li>
@@ -487,7 +477,7 @@ Octave <code>0</code> starts with C0.</p>
 <li>
 <p><strong>Max root note, otherwise 1 octave down</strong><br>
 <em>&quot;Don't use&quot;, D, E, F, G, A or B</em><br>
-<code>Don't use:</code> Don't change octave, all in <strong>Octave for root Chord</strong>.<br>
+<code>Don't use:</code> Don't change octave, root note of chords always in <strong>Octave for root Chord</strong>.<br>
 <code>D, E, ...:</code> If the root note of the chord is above this the chord notes will be one octave down relative to <strong>Octave for root Chord</strong>.</p>
 </li>
 <li>
@@ -499,7 +489,7 @@ Octave <code>0</code> starts with C0.</p>
 <li>
 <p><strong>Min bass note, otherwise 1 octave up</strong><br>
 <em>&quot;Don't use&quot;, D, E, F, G, A or B</em><br>
-<code>Don't use:</code> Don't change octave, all in <strong>Octave for bass note</strong>.<br>
+<code>Don't use:</code> Don't change octave, bass note of chords always in <strong>Octave for bass note</strong>.<br>
 <code>D, E, ...:</code> If the bass note of the chord is under this the bass note will be one octave up relative to <strong>Octave for bass note</strong>.</p>
 </li>
 <li>
@@ -540,8 +530,29 @@ These will also show ignored parts of the chord text (if any).</p>
 <p><strong>Write Chord letters</strong><br>
 Write generated notes as letters, can be a help to easy see what notes are generated. It's written as &quot;lyrics&quot; under staff #2 if used, that is because the measures ought to be stretched to avoid overlaying.<br>
 <code>No:</code>  Don't use this.<br>
-<code>Yes</code>: Write real notes as e.g. <code>D-F#-A-C#</code> for <code>Dmaj7</code>.<br>
-<code>In C-scale</code> : Write notes in C-scale, e.g. <code>C-E-G-B</code> for <code>Dmaj7</code>, to easy recognize the chord.</p>
+<code>Yes</code>: Write real note letters as e.g. <code>D-F#-A-C#</code> for <code>Dmaj7</code>.<br>
+<code>In C-scale</code> : Write note letters in C-scale, e.g. <code>C-E-G-B</code> for <code>Dmaj7</code>, to easy recognize the chord.</p>
+</li>
+</ul>
+<h2 id="staves-for-chord-and-bass-notes">Staves for Chord and bass notes</h2>
+<p>The plugin uses 1 or 2 staves depending on if &quot;bass notes&quot; is used. Generating Chord notes in staff #2 and bass notes in staff #3 - if used.<br>
+After the Options box it checks that there are enough staves. There are some alternatives:</p>
+<ul>
+<li>
+<p>If only one staff in the Score it asks if you want to create 2 (or 1) extra staves.</p>
+<ul>
+<li>If you answer &quot;<code>Yes</code>&quot; it adds two staves with instrument &quot;Piano&quot; (will use only one if not &quot;bass notes&quot;).<br>
+The staff for bass notes is however using normal G-clef (unlike when adding the instrument in the UI), and the bass notes will reside far down (if &quot;bass notes&quot; is used). After the plugin it's a good idea to change to a F-clef to have it more readable.</li>
+<li>Answer &quot;<code>No</code>&quot; if you want to chose what instrument to add.</li>
+<li>Or &quot;<code>Cancel</code>&quot; to quit the plugin.</li>
+</ul>
+</li>
+<li>
+<p>If enough staves already exists it asks if it's ok to use them (or only one if not &quot;bass notes&quot;).<br>
+It will then <strong>overwrite any notes</strong> that are already there, for voice #1. Notes in other voices are not touched.</p>
+</li>
+<li>
+<p>If more than one staff but not enough it will give an error message.</p>
 </li>
 </ul>
 <h2 id="issues">Issues</h2>
@@ -568,7 +579,7 @@ If the plugin still crashes even if this is done, then you can report that as an
 </li>
 </ul>
 <h2 id="defaults">Defaults</h2>
-<p>The &quot;option box&quot; is using default values. They are defined in the code in <em>notesFromChordTexts.qml</em>. It's kind of easy to change the default values if you know javascript programming, they are all defined in the top when defining <code>var glb</code>.</p>
+<p>The &quot;Options box&quot; is using default values. They are defined in the code in <em>notesFromChordTexts.qml</em>. It's kind of easy to change the default values if you know javascript programming, they are all defined in the top when defining <code>var glb</code>.</p>
 <p>The default values are optimized for a nice sound for soft melodies when using &quot;violin&quot; for the melody and &quot;pipe organ&quot; for the added chord and bass notes, IMHO.</p>
 
 </body>
