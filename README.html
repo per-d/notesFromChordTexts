@@ -411,7 +411,7 @@ blockquote {
 <li>Run the plugin via <code>plugin &gt; Chords &gt; Notes from Chord texts</code></li>
 <li>The plugin adds two staves*, one for chord notes (called root chord) and one for bass notes*.</li>
 <li>*The plugin starts with an option box, there you can set the options you want, see <a href="#options"><strong>Options</strong></a> below. E.g. don't add bass notes.</li>
-<li>The plugin will try to close the score when finished, then asking for <code>&lt;Save&gt;</code>, <code>&lt;Discard&gt;</code> or <code>&lt;Cancel&gt;</code>. The reason is that the score will be in a bad state after the plugin have finished, and the added notes are not playable yet. So do save/close.</li>
+<li>The plugin will try to close the score when finished, then asking for <code>&lt;Save&gt;</code>, <code>&lt;Discard&gt;</code> or <code>&lt;Cancel&gt;</code>. The reason is that the score will be in a bad state after the plugin have finished, and the added notes are not playable yet. So, do save/close.</li>
 <li>Reopen the score and listen to the music.</li>
 <li>To easy change the added notes see <a href="https://musescore.org/en/handbook/note-input">MuseScore shortcuts</a>, e.g. ctrl up/down to move a note up/down one octave.</li>
 </ul>
@@ -499,7 +499,7 @@ This is <strong>not</strong> dependent on the MuseScore setting &quot;<em>Lower 
 </li>
 <li>
 <p><strong>Allow add to last harmony (experimental)</strong><br>
-E.g. <code>C</code> will generate <code>C-E-G</code>, and if next chord text is only <code>7</code> it's adding the notation to <code>C</code> (the last chord) and generating <code>C-E-G-Bb</code>. It's the same as writing <code>C7</code>. The next can then be <code>6</code> which means <code>C76</code> (<code>c7add6</code>).<br>
+E.g. <code>C</code> will generate <code>C-E-G</code>, and if next chord text is only <code>7</code> it's adding the notation to <code>C</code> (the last chord) and generating <code>C-E-G-Bb</code>. It's the same as writing <code>C7</code>. The next can then be <code>6</code> which means <code>C7/6</code> (<code>c7add6</code>).<br>
 It's experimental, and only there because a friend of mine uses that notation.</p>
 </li>
 <li>
@@ -543,12 +543,12 @@ After the Options box it checks that there are enough staves. There are some alt
 <ul>
 <li>If you answer &quot;<code>Yes</code>&quot; it adds two staves with instrument &quot;Piano&quot; (will use only one if not &quot;bass notes&quot;).<br>
 The staff for bass notes is however using normal G-clef (unlike when adding the instrument in the UI), and the bass notes will reside far down (if &quot;bass notes&quot; is used). After the plugin it's a good idea to change to a F-clef to have it more readable.</li>
-<li>Answer &quot;<code>No</code>&quot; if you want to chose what instrument to add.</li>
+<li>Answer &quot;<code>No</code>&quot; if you want to choose what instrument to add.</li>
 <li>Or &quot;<code>Cancel</code>&quot; to quit the plugin.</li>
 </ul>
 </li>
 <li>
-<p>If enough staves already exists it asks if it's ok to use them (or only one if not &quot;bass notes&quot;).<br>
+<p>If enough staves already exist it asks if it's ok to use them (or only one if not &quot;bass notes&quot;).<br>
 It will then <strong>overwrite any notes</strong> that are already there, for voice #1. Notes in other voices are not touched.</p>
 </li>
 <li>

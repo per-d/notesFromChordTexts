@@ -33,7 +33,7 @@ This plugin was inspired from MuseScore 2.x plugin [Generate Notes from Chords a
 - Run the plugin via ``plugin > Chords > Notes from Chord texts``
 - The plugin adds two staves*, one for chord notes (called root chord) and one for bass notes*.
 - *The plugin starts with an option box, there you can set the options you want, see [__Options__](#options) below. E.g. don't add bass notes.
-- The plugin will try to close the score when finished, then asking for `<Save>`, `<Discard>` or `<Cancel>`. The reason is that the score will be in a bad state after the plugin have finished, and the added notes are not playable yet. So do save/close.
+- The plugin will try to close the score when finished, then asking for `<Save>`, `<Discard>` or `<Cancel>`. The reason is that the score will be in a bad state after the plugin have finished, and the added notes are not playable yet. So, do save/close.
 - Reopen the score and listen to the music.
 - To easy change the added notes see [MuseScore shortcuts](https://musescore.org/en/handbook/note-input), e.g. ctrl up/down to move a note up/down one octave.
 
@@ -108,7 +108,7 @@ _"Don't use", D, E, F, G, A or B_
 This is __not__ dependent on the MuseScore setting "_Lower case minor chords_". Normally all chord keys are shown in MuseScore with upper case no matter if it's typed in with lower or upper case (if "_Automatic Capitalization_" is used). If the MuseScore setting "_Lower case minor chords_" is used they are shown as they are typed in. If the setting is used for the plugin it will treat lower case keys as minor chords even if it's not set in MuseScore and therefore shown in MuseScore with upper case.
 
 - __Allow add to last harmony (experimental)__  
-E.g. `C` will generate `C-E-G`, and if next chord text is only `7` it's adding the notation to `C` (the last chord) and generating `C-E-G-Bb`. It's the same as writing `C7`. The next can then be `6` which means `C76` (`c7add6`).  
+E.g. `C` will generate `C-E-G`, and if next chord text is only `7` it's adding the notation to `C` (the last chord) and generating `C-E-G-Bb`. It's the same as writing `C7`. The next can then be `6` which means `C7/6` (`c7add6`).  
 It's experimental, and only there because a friend of mine uses that notation.
 
 - __Reduce chords__  
@@ -146,10 +146,10 @@ After the Options box it checks that there are enough staves. There are some alt
 - If only one staff in the Score it asks if you want to create 2 (or 1) extra staves.  
   - If you answer "`Yes`" it adds two staves with instrument "Piano" (will use only one if not "bass notes").  
 The staff for bass notes is however using normal G-clef (unlike when adding the instrument in the UI), and the bass notes will reside far down (if "bass notes" is used). After the plugin it's a good idea to change to a F-clef to have it more readable.
-  - Answer "`No`" if you want to chose what instrument to add.
+  - Answer "`No`" if you want to choose what instrument to add.
   - Or "`Cancel`" to quit the plugin.  
 
-- If enough staves already exists it asks if it's ok to use them (or only one if not "bass notes").  
+- If enough staves already exist it asks if it's ok to use them (or only one if not "bass notes").  
 It will then __overwrite any notes__ that are already there, for voice #1. Notes in other voices are not touched.
 
 - If more than one staff but not enough it will give an error message.
