@@ -1420,7 +1420,7 @@ mo.staffObject = function() {
           case 'bb':   ho.t[tone] = ho.tFlt2; break;
           case 'omit': delete ho.t[tone]; break;
         }
-        // special for 7th: "#" = major ("straight", B), "##" = "#" (C)
+        // special for 7th: "#" = major (dominant B), "##" = "#" (C)
         if (tone === "7" && ho.t[tone] && ho.t[tone] >= 1) ho.t[tone] -= 1;
       }
       ho.rootRemain += remain;
@@ -1439,38 +1439,14 @@ mo.staffObject = function() {
         return null;
       }
 
-      var tone, useTone, toneInd, alt, useAlt, altS, semi, semiAlt, letter, tpc;
+      var tone, toneInd, alt, altS, semi, semiAlt, letter, tpc;
       ho.semitones      = [];
       ho.semiTpcs       = [];
       ho.semiLetters    = [];
       ho.semiLettersInC = [];
       conLog(10, "semiNbrs, ho.t: ", { obj: ho.t }, " ----------");
 
-      // adjust if alterations are "##" or "bb" (and "specials" e.g. E# -> F)
-      for (tone = 1; tone <= 7; tone++) {
-        useTone = tone;
-        alt     = ho.t[tone];
-        if (typeof(alt) !== "number") continue;
-        useAlt  = alt;
-        if (alt < -1) {
-          useTone -= 1;
-          useAlt  += 2;
-          delete ho.t[tone];
-        } else if (alt > 1) {
-          useTone += 1;
-          useAlt  -= 2;
-        }
-        if (useTone !== tone) {
-          ho.t[useTone] = useAlt;
-          delete ho.t[tone];
-          conLog(10,
-            "semiNbrs, ho.t[", tone, "](", numToSWSign(alt),
-            ") -> ho.t[" + useTone + "](", numToSWSign(useAlt), ")", ""
-            );
-        }
-      }
-
-      // extract semitones //
+      // extract semitones
       for (tone in ho.t) {
         alt = ho.t[tone];
         if (typeof(alt) === "number") {
@@ -1592,6 +1568,8 @@ mo.staffObject = function() {
     /***
      * Returns TPC for tone that is <semiTone> (half-tones) higher than rootTPC,
      * e.g. semitoneToTPC(TPC of C#, 4) = TPC of E#.
+     * Will reduce double signatures (and "specials") of the resulting TPC,
+     * e.g. A## -> B, E# -> F etc.
      * @param {Number} <rootTpc>    TPC for the root tone.
      * @param {Number} <semiTone>   Semitones over the root.
      * @param {Number} <alt>        opt. Alteration, in "semitone", e.g. -1.
@@ -1663,7 +1641,6 @@ mo.staffObject = function() {
     function addToAlters() {
       var strMInd, text, doParenth, argInd = 0;
       if (typeof(arguments[argInd]) !== "number") doParenth = arguments[argInd++];
-      conLog(99, "doParenth: ", doParenth);
       text = "";
       while ((strMInd = arguments[argInd++])) { text += (strM[strMInd] || ""); }
       if (! text) return;
