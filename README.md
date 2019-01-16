@@ -6,16 +6,18 @@
 </style>
 # MuseScore 2.x plugin - Notes from Chord texts
 
-This plugin for [MuseScore 2.x](http://musescore.org/) reads chord (Harmony) texts and creates Chord notes in one staff, and bass note in another one. The created notes have correct durations according to the duration of the written chord, and are playable by MuseScore.
+This plugin for [MuseScore 2.x](http://musescore.org/) reads chord (Harmony) texts and creates Chord notes in one added staff, and bass note in another added one if chosen. The created notes have correct durations according to the duration of the written chord, and are playable by MuseScore.
 
 The plugin uses rules in [wiki: Chord names and symbols (popular music)][1] (as I understand them). All possible combinations of chords according to rules in that page are recognized and will generate notes.
 
 The created notes are more of a suggestion, to get it to sound nice it's perhaps a good idea to move some notes one octave up or down, or just remove them.
 
-This is run with default settings, _before_:  
-![Example before](https://github.com/per-d/notesFromChordTexts/raw/master/test/silent_night_test_before.PNG)
+Example, _before_:  
+![Example before](https://github.com/per-d/notesFromChordTexts/raw/master/test/silent_night_test_before.PNG)  
 
-_After_ (the 7th in the last chord is manually moved down 1 octave after the plugin):  
+_After_:  
+Ran with default settings, and chose to manually add "pipe organ" with only 2 clefs (see [__Staves for Chord and bass notes__](#staves-for-chord-and-bass-notes)).  
+The 7th in the last chord is manually moved down 1 octave after the plugin.  
 ![Example after](https://github.com/per-d/notesFromChordTexts/raw/master/test/silent_night_test_after.PNG)
 
 [Click to see another example](https://github.com/per-d/notesFromChordTexts/raw/master/test/test_chords_after.PNG) that uses both options __Write parsed Harmony texts__ and __Write Chord letters__ with "`Yes`". This example also shows some alternative ways of writing chords, and have some comments added.
@@ -61,7 +63,7 @@ _Alterations_
 _Alternative syntax and short ways_
 - ending `0` same as `07`
 - alone `^` same as `maj7` (but not alone `maj`; `Cmaj` = `C`, `C^` = `Cmaj7`)
-- only `[tone]+/aug` same as `aug[tone]`
+- only `[tone]+/aug` same as `aug[tone]`, e.g. `C7+` = `C+7`
 - `N.C.` (no chord) also allows `N.C`, `n.c.` and `n.c`
 
 _Specials_
@@ -140,13 +142,14 @@ Write generated notes as letters, can be a help to easy see what notes are gener
 
 ## Staves for Chord and bass notes
 
-The plugin uses 1 or 2 staves depending on if "bass notes" is used. Generating Chord notes in staff #2 and bass notes in staff #3 - if used.  
+The plugin uses 1 or 2 staves depending on if "bass notes" is used. Generating Chord notes in staff #2 and bass notes in staff #3 - if used. Either in automatically added or existing staves.
+
 After the Options box it checks that there are enough staves. There are some alternatives:
 
 - If only one staff in the Score it asks if you want to create 2 (or 1) extra staves.  
   - If you answer "`Yes`" it adds two staves with instrument "Piano" (will use only one if not "bass notes").  
 The staff for bass notes is however using normal G-clef (unlike when adding the instrument in the UI), and the bass notes will reside far down (if "bass notes" is used). After the plugin it's a good idea to change to a F-clef to have it more readable.
-  - Answer "`No`" if you want to choose what instrument to add.
+  - Answer "`No`" if you want to choose what instrument to add. Make sure you add enough staves, 2 if "bass notes" is used, otherwise 1. If not enough staves it gives an error message.
   - Or "`Cancel`" to quit the plugin.  
 
 - If enough staves already exist it asks if it's ok to use them (or only one if not "bass notes").  

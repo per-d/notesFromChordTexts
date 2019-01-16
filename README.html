@@ -392,12 +392,14 @@ blockquote {
   }
 </style>
 <h1 id="musescore-2x-plugin---notes-from-chord-texts">MuseScore 2.x plugin - Notes from Chord texts</h1>
-<p>This plugin for <a href="http://musescore.org/">MuseScore 2.x</a> reads chord (Harmony) texts and creates Chord notes in one staff, and bass note in another one. The created notes have correct durations according to the duration of the written chord, and are playable by MuseScore.</p>
+<p>This plugin for <a href="http://musescore.org/">MuseScore 2.x</a> reads chord (Harmony) texts and creates Chord notes in one added staff, and bass note in another added one if chosen. The created notes have correct durations according to the duration of the written chord, and are playable by MuseScore.</p>
 <p>The plugin uses rules in <a href="https://en.wikipedia.org/wiki/Chord_names_and_symbols_(popular_music)">wiki: Chord names and symbols (popular music)</a> (as I understand them). All possible combinations of chords according to rules in that page are recognized and will generate notes.</p>
 <p>The created notes are more of a suggestion, to get it to sound nice it's perhaps a good idea to move some notes one octave up or down, or just remove them.</p>
-<p>This is run with default settings, <em>before</em>:<br>
+<p>Example, <em>before</em>:<br>
 <img src="https://github.com/per-d/notesFromChordTexts/raw/master/test/silent_night_test_before.PNG" alt="Example before"></p>
-<p><em>After</em> (the 7th in the last chord is manually moved down 1 octave after the plugin):<br>
+<p><em>After</em>:<br>
+Ran with default settings, and chose to manually add &quot;pipe organ&quot; with only 2 clefs (see <a href="#staves-for-chord-and-bass-notes"><strong>Staves for Chord and bass notes</strong></a>).<br>
+The 7th in the last chord is manually moved down 1 octave after the plugin.<br>
 <img src="https://github.com/per-d/notesFromChordTexts/raw/master/test/silent_night_test_after.PNG" alt="Example after"></p>
 <p><a href="https://github.com/per-d/notesFromChordTexts/raw/master/test/test_chords_after.PNG">Click to see another example</a> that uses both options <strong>Write parsed Harmony texts</strong> and <strong>Write Chord letters</strong> with &quot;<code>Yes</code>&quot;. This example also shows some alternative ways of writing chords, and have some comments added.</p>
 <h2 id="idea-from">Idea from</h2>
@@ -439,7 +441,7 @@ blockquote {
 <ul>
 <li>ending <code>0</code> same as <code>07</code></li>
 <li>alone <code>^</code> same as <code>maj7</code> (but not alone <code>maj</code>; <code>Cmaj</code> = <code>C</code>, <code>C^</code> = <code>Cmaj7</code>)</li>
-<li>only <code>[tone]+/aug</code> same as <code>aug[tone]</code></li>
+<li>only <code>[tone]+/aug</code> same as <code>aug[tone]</code>, e.g. <code>C7+</code> = <code>C+7</code></li>
 <li><code>N.C.</code> (no chord) also allows <code>N.C</code>, <code>n.c.</code> and <code>n.c</code></li>
 </ul>
 <p><em>Specials</em></p>
@@ -535,15 +537,15 @@ Write generated notes as letters, can be a help to easy see what notes are gener
 </li>
 </ul>
 <h2 id="staves-for-chord-and-bass-notes">Staves for Chord and bass notes</h2>
-<p>The plugin uses 1 or 2 staves depending on if &quot;bass notes&quot; is used. Generating Chord notes in staff #2 and bass notes in staff #3 - if used.<br>
-After the Options box it checks that there are enough staves. There are some alternatives:</p>
+<p>The plugin uses 1 or 2 staves depending on if &quot;bass notes&quot; is used. Generating Chord notes in staff #2 and bass notes in staff #3 - if used. Either in automatically added or existing staves.</p>
+<p>After the Options box it checks that there are enough staves. There are some alternatives:</p>
 <ul>
 <li>
 <p>If only one staff in the Score it asks if you want to create 2 (or 1) extra staves.</p>
 <ul>
 <li>If you answer &quot;<code>Yes</code>&quot; it adds two staves with instrument &quot;Piano&quot; (will use only one if not &quot;bass notes&quot;).<br>
 The staff for bass notes is however using normal G-clef (unlike when adding the instrument in the UI), and the bass notes will reside far down (if &quot;bass notes&quot; is used). After the plugin it's a good idea to change to a F-clef to have it more readable.</li>
-<li>Answer &quot;<code>No</code>&quot; if you want to choose what instrument to add.</li>
+<li>Answer &quot;<code>No</code>&quot; if you want to choose what instrument to add. Make sure you add enough staves, 2 if &quot;bass notes&quot; is used, otherwise 1. If not enough staves it gives an error message.</li>
 <li>Or &quot;<code>Cancel</code>&quot; to quit the plugin.</li>
 </ul>
 </li>
