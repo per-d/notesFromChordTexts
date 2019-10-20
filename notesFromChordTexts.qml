@@ -131,7 +131,11 @@ var glb = {
   // 10: harmony -> chord notes, details
   // 15: harmony, line with result
   // etc.  (look in code for first parameter to 'conLog')
-  debugLevels:   [ 0, 1, 15 ],
+  //debugLevels:   [ 0, 4, 41, 42 ],
+  debugLevels:   [ 0, 1, 4, 10, 11, 15, 41, 42, 43, 44 ],
+  //debugLevels:   [ 0, 1, 2, 4, 10, 11, 15, 44 ],
+  //debugLevels:   [ 0, 1, 15 ],
+  //debugLevels:   [ 0, 1, 44 ],
 
   // Name for the debug file, set it to falsy ("", null, false, 0...) or just
   // comment it out if not logging to file
@@ -199,7 +203,7 @@ var glb = {
   //                  the same with 2th (1 octave under 9th) if that is major
   //                  - and not a sus2 chord.
   // used in code and as default in Settings box if used (0 = None)
-  reduceChordsLevel:   0,
+  reduceChordsLevel:   1,
 
   // If 9th chord should imply 7th, 11th imply 9th and 7th etc.
   // used in code and as default in Settings box if used
@@ -615,8 +619,8 @@ mo.staffObject = function() {
       lastChordO.maxTicks(true, cursorChord, "(Adv-Clean) last Chord init");
     }
 
-    while(truthy(cursorChord.tick, 0) && (cursorChord.tick < toTick)) {
-      cursorChord.next();
+    while (truthy(cursorChord.tick, 0) && (cursorChord.tick < toTick)) {
+      st.doNext("", cursorChord);
       // break if "bad cursor" or same as or past 'toTick'
       if ( ! cursorChord.tick || cursorChord.tick < 0 || cursorChord.tick >= toTick) break;
 
@@ -676,8 +680,8 @@ mo.staffObject = function() {
         cursorNext = nextCursor[staff];
     if (debT === "") debT = "cursorNext.tick -> curTick:: " + cursorNext.tick;
 
-    while(truthy(cursorNext.tick, 0) && (cursorNext.tick < toTick)) {
-      cursorNext.next();
+    while (truthy(cursorNext.tick, 0) && (cursorNext.tick < toTick)) {
+      st.doNext("", cursorNext);
       // break if "bad cursor" or past 'toTick'
       if ( ! cursorNext.tick || cursorNext.tick < 0 || cursorNext.tick > toTick) break;
       conLog(41, "- AdvNextCh/Rst, .next(), new tick: ", st.ticksToStr(cursorNext.tick, "", 1, "@"));
@@ -690,6 +694,19 @@ mo.staffObject = function() {
     if (swChord === null) swChord = st.isChordRest(cursorNext.segment);
     conLog(4, "- AdvNextCh/Rst, ", debT, " -> " + cursorNext.tick);
     return swChord;
+  };
+
+  /***
+   * Do 'cursor.next()' for <cursor>.
+   * @param {String} <debT>    Debug text.
+   * @param {Cursor} <cursor>  The cursor.
+   * (This function was made when some problem with getting info for the measure,
+   * to do all 'next' in one function and do the logging.)
+   */
+  st.doNext = function(debT, cursor) {
+    if (debT === "") debT = "cursor.tick -> curTick:: " + cursor.tick;
+    cursor.next();
+    conLog(46, "- doNext, ", debT, " -> " + cursor.tick);
   };
 
   /***
@@ -802,7 +819,7 @@ mo.staffObject = function() {
       el.measureRemain = null;
       el.nextChordTick = null;
 
-      var firstSeg, lastSeg, text,
+      var firstSeg, lastSeg, text, swOk,
           okBit = 0,
           elm   = element;
 
@@ -832,11 +849,19 @@ mo.staffObject = function() {
         } else if (elm.type === Element.MEASURE) {
           firstSeg = elm.firstSegment;
           lastSeg  = elm.lastSegment;
-          text     = lastSeg.segmentType === Segment.EndBarLine ?
-            "Segment.EndBarLine" :
-            "" + lastSeg.segmentType + " (Segment.EndBarLine = " + Segment.EndBarLine + ")";
+          swOk     = true;
+          if (lastSeg.segmentType === Segment.EndBarLine) {
+            text = "Segment.EndBarLine";
+          } else if (lastSeg.segmentType === Segment.KeySigAnnounce) {
+            text = "Segment.KeySigAnnounce";
+          } else {
+            swOk = false;
+            text = "" + lastSeg.segmentType +
+              " (Segment.EndBarLine = " + Segment.EndBarLine +
+              ", Segment.KeySigAnnounce = " + Segment.KeySigAnnounce + ")";
+          }
           conLog(43, "ElObj, last Segment.segmentType: ", text);
-          if (truthy(el.tick, 0) && lastSeg && lastSeg.segmentType === Segment.EndBarLine) {
+          if (truthy(el.tick, 0) && swOk) {
             // NB 'measureRemain' is including elements durationType
             el.measureRemain  = lastSeg.tick - el.tick;
             if (! el.measureRemain || el.measureRemain < 0) el.measureRemain = 0;
@@ -846,9 +871,25 @@ mo.staffObject = function() {
               ", .ticks remain: ", st.ticksToStr(el.measureRemain)
               );
           } else {
+            // (prepared for debugging...)
+            if (false) {
+              conLog(99, "Segment.All: " + Segment.All);
+              conLog(99, "Segment.Ambitus: " + Segment.Ambitus);
+              conLog(99, "Segment.BarLine: " + Segment.BarLine);
+              conLog(99, "Segment.Breath: " + Segment.Breath);
+              conLog(99, "Segment.ChordRest: " + Segment.ChordRest);
+              conLog(99, "Segment.Clef: " + Segment.Clef);
+              conLog(99, "Segment.EndBarLine: " + Segment.EndBarLine);
+              conLog(99, "Segment.Invalid: " + Segment.Invalid);
+              conLog(99, "Segment.KeySig: " + Segment.KeySig);
+              conLog(99, "Segment.KeySigAnnounce: " + Segment.KeySigAnnounce);
+              conLog(99, "Segment.StartRepeatBarLine: " + Segment.StartRepeatBarLine);
+              conLog(99, "Segment.TimeSig: " + Segment.TimeSig);
+              conLog(99, "Segment.TimeSigAnnounce: " + Segment.TimeSigAnnounce);
+            }
             el.errorMessage = "Can't get tick after last element of the measure";
             el.errorInfo    = "\"last element\" of the measure isn't a Bar Line";
-            break;;
+            break;
           }
           el.measureTick = firstSeg.tick;
           if (el.measureTicks) okBit |= 0x4;
@@ -1115,10 +1156,12 @@ mo.staffObject = function() {
         chordRemain = chordRemain.
           replace(/^(min|-)/,           "m").       // leading "min" or "-" to "m"
           replace(/^maj$/,              "").        // remove only "maj"
-          replace(/(^|[^n])o(?=[\db]|$)/g,  "$1dim").  // all lonely "o" to "dim"
+          replace(/(^|[^n])o(?=[\db]|$)/g,
+                                        "$1dim").   // all lonely "o" to "dim"
           replace(/0$/,                 "07").      // ending only "0" to "07"
-          replace(/^([^\d]*)\^(?=$|[^\d])/, "$1maj7"). // only "^" without previous tone to "maj7"
-          replace(/\^/g,                "maj").     // all "^" to "maj"
+          replace(/^([^\d]*)(\^|t)(?=$|[^\d])/,
+                                        "$1maj7").  // only "^" without previous tone to "maj7"
+          replace(/\^|t/g,              "maj").     // all "^" or "t" to "maj"
           replace(/^(m?)\+/,            "$1aug").   // leading "+" to "aug"
           replace(/^(m?)(\d+)(\+|aug)$/,"$1aug$2"). // only [tone] and "+/aug" to "aug[tone]"
           replace(/^(m?)([42])$/,       "$1sus$2"). // only 4 or 2 to "sus[4|2]"
@@ -1760,7 +1803,15 @@ function numToSWSign(n) {
  * Doing console.log depending on current "debug level".
  * @param {Number|Bool} <level>  Decides if this should be logged, it will if
  *                               <level> is included in {Array} 'glb.debugLevels'.
- * @return {String} the logged String (id done)
+ *                               true: write unconditionally.
+ *                               99:   write unconditionally, with pre string
+ *                                     ">>>>>>>>>..."
+ * @return {String} the logged String (if done)
+ * Examples
+ *   conLog(44, 'Hey!')
+ *   //=> Will write "Hey!" to the log file if 44 is in glb.debugLevels.
+ *   conLog(true, { obj: theObject });
+ *   //=> Doing 'objectToStr' for 'theObject'.
  */
 function conLog(level) {
   if (level !== true && level !== 99 && glb.debugLevels.indexOf(level) < 0) return null;
@@ -1825,7 +1876,7 @@ function getSegmentHarmony(segment) {
   if (! staffObj.isChordRest(segment)) return null;
   var annotation, harmonyElem,
       aCount = 0;
-  while((annotation = segment.annotations[aCount++])) {
+  while ((annotation = segment.annotations[aCount++])) {
     if (annotation.type === Element.HARMONY) {
       harmonyElem = annotation;
       // Return if no Harmony text or it doesn't start with "(", or ends
