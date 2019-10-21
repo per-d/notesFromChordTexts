@@ -254,7 +254,7 @@ var glb = {
   resultIcon:     StandardIcon.Information,
   resultButtons:  StandardButton.Ok,
 
-  // ignore harmonies that starts with "(" or "[", or ends with "(" (without
+  // ignore harmonies that starts with "(" or "[", or ends with ")" (without
   // any earlier "("), parentheses can span over two harmonies.
   ignoreHarmonyRegx: /^((\(|\[)|[^(]*\)$)/,
   // [r] "N.C." means "no chord", should be a rest instead
@@ -1159,9 +1159,9 @@ mo.staffObject = function() {
           replace(/(^|[^n])o(?=[\db]|$)/g,
                                         "$1dim").   // all lonely "o" to "dim"
           replace(/0$/,                 "07").      // ending only "0" to "07"
-          replace(/^([^\d]*)(\^|t)(?=$|[^\d])/,
-                                        "$1maj7").  // only "^" without previous tone to "maj7"
-          replace(/\^|t/g,              "maj").     // all "^" or "t" to "maj"
+          replace(/^([^\d]*)(\^|t)(?=$|[^\d])/,     // only "^" or "t" without previous
+                                        "$1maj7").  //   or following tone to "maj7"
+          replace(/\^/g,                "maj").     // all "^" to "maj"
           replace(/^(m?)\+/,            "$1aug").   // leading "+" to "aug"
           replace(/^(m?)(\d+)(\+|aug)$/,"$1aug$2"). // only [tone] and "+/aug" to "aug[tone]"
           replace(/^(m?)([42])$/,       "$1sus$2"). // only 4 or 2 to "sus[4|2]"
