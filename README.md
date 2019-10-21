@@ -12,15 +12,17 @@ The plugin uses rules in [wiki: Chord names and symbols (popular music)][1] (as 
 
 The created notes are more of a suggestion, to get it to sound nice it's perhaps a good idea to move some notes one octave up or down, or just remove them.
 
-Example, _before_:  
+**Example, _before_:**  
 ![Example before](https://github.com/per-d/notesFromChordTexts/raw/master/test/silent_night_test_before.PNG)  
 
-_After_:  
+**_After_**:  
 Ran with default settings, and chose to manually add "pipe organ" with only 2 clefs (see [__Staves for Chord and bass notes__](#staves-for-chord-and-bass-notes)).  
 The 7th in the last chord is manually moved down 1 octave after the plugin.  
 ![Example after](https://github.com/per-d/notesFromChordTexts/raw/master/test/silent_night_test_after.PNG)
 
-[Click to see another example](https://github.com/per-d/notesFromChordTexts/raw/master/test/test_chords_after.PNG) that uses both options __Write parsed Harmony texts__ and __Write Chord letters__ with "`Yes`". This example also shows some alternative ways of writing chords, and have some comments added.
+[Click to see another example](https://github.com/per-d/notesFromChordTexts/raw/master/test/test_chords_after.PNG) that uses default options except these:  
+__Octave for bass note:__ "`Don't use`", __Reduce chords:__ "`None`", option __Write parsed Harmony texts__ and __Write Chord letters:__ "`Yes`".  
+This example also shows some alternative ways of writing chords, and have some comments added.
 
 ## Idea from
 
@@ -32,7 +34,7 @@ This plugin was inspired from MuseScore 2.x plugin [Generate Notes from Chords a
 - Only the [qml file](https://github.com/per-d/notesFromChordTexts/raw/master/notesFromChordTexts.qml) is needed, but it can be a good idea to copy the folder into the plugin folder, partly to use test scores in sub folder [test](https://github.com/per-d/notesFromChordTexts/tree/master/test), and in the future perhaps translation files will be added.
 - [Enable](https://musescore.org/en/handbook/plugins#enable-disable-plugins) the plugin "notesFromChordTexts", and restart MuseScore.
 - Open a score with chord texts.
-- Run the plugin via ``plugin > Chords > Notes from Chord texts``
+- Run the plugin via ``Plugins > Chords > Notes from Chord texts``
 - The plugin adds two staves*, one for chord notes (called root chord) and one for bass notes*.
 - *The plugin starts with an option box, there you can set the options you want, see [__Options__](#options) below. E.g. don't add bass notes.
 - The plugin will try to close the score when finished, then asking for `<Save>`, `<Discard>` or `<Cancel>`. The reason is that the score will be in a bad state after the plugin have finished, and the added notes are not playable yet. So, do save/close.
@@ -44,31 +46,63 @@ Chords can be written in different ways, this plugin allows all alternatives des
 
 __Allowed synonyms for:__
 
-_Extensions_
-- `m:` &emsp;− (Unicode hx2212), -, min, minor
-- `maj:` ^, Δ, ∆, M, j, ma, major</td>
-- `aug:` +
-- `dim:` ° ("degree"), o (low case)
-- `0 (zero):` Ø, ø
-- `sus4:` 4, sus
-- `sus2:` 2
-
-
-_Alterations_
-- `b:` &emsp;♭ (Unicode), -, dim
-- `#:` &emsp;♯ (Unicode), +, aug
-- `add:` dom, maj (`maj` is not the same as `#` according to [used Chord rules][1])
-- `omit:` no, drop
-
-_Alternative syntax and short ways_
-- ending `0` same as `07`
-- alone `^` same as `maj7` (but not alone `maj`; `Cmaj` = `C`, `C^` = `Cmaj7`)
-- only `[tone]+/aug` same as `aug[tone]`, e.g. `C7+` = `C+7`
-- `N.C.` (no chord) also allows `N.C`, `n.c.` and `n.c`
-
-_Specials_
-- Chord texts that starts with "`(`", or if it ends with "`)`" without any "`(`" before, will be totally ignored.
-- `alt`, `lyd` and any only text in parentheses, e.g. `(blues)` is just ignored. E.g. `Calt` will generate a normal `C`; `C-E-G`, but the ignored part is shown as "Staff text" above staff #2.
+<table>
+  </tr><tr>
+    <td></td><td></td>
+  <tr>
+    <td><b><i>Extension</i></b></td>
+    <td><b><i>Synonyms</i></b></td>
+  </tr><tr>
+    <td><code>m</code></td><td>− (Unicode hx2212), -, min, minor</td>
+  </tr><tr>
+    <td><code>maj</code></td><td>^, t, Δ, ∆, M, j, ma, major (t only as "alone")</td>
+  </tr><tr>
+    <td><code>aug</code></td><td>+</td>
+  </tr><tr>
+    <td><code>dim</code></td><td>° ("degree"), o (low case character)</td>
+  </tr><tr>
+    <td><code>0&nbsp;(zero)</code></td><td>Ø, ø</td>
+  </tr><tr>
+    <td><code>sus4</code></td><td>4, sus</td>
+  </tr><tr>
+    <td><code>sus2</code></td><td>2</td>
+  </tr><tr>
+    <td></td><td></td>
+  </tr><tr>
+    <td><b><i>Alteration</i></b></td>
+    <td><b><i>Synonyms</i></b></td>
+  </tr><tr>
+    <td><code>b</code></td><td>♭ (Unicode), -, dim</td>
+  </tr><tr>
+    <td><code>#</code></td><td>♯ (Unicode), +, aug</td>
+  </tr><tr>
+    <td><code>add</code></td><td>dom, maj (<code>maj</code> is not the same as <code>#</code> according to <a href="https://en.wikipedia.org/wiki/Chord_names_and_symbols_(popular_music)">used Chord rules</a>)</td>
+  </tr><tr>
+    <td><code>omit</code></td><td>no, drop</td></td>
+  </tr><tr>
+    <td></td><td></td>
+  </tr><tr>
+    <td colspan="2"><b><i>Alternative syntax and short ways</i></b></td>
+  </tr><tr>
+    <td>ending&nbsp;<code>0</code></td><td>same as <code>07</code></td>
+  </tr><tr>
+    <td>alone&nbsp;<code>^</code>&nbsp;or&nbsp;<code>t</code></td><td>same as <code>maj7</code> (but not alone <code>maj</code>; <code>Cmaj</code> = <code>C</code>, <code>C^</code> = <code>Cmaj7</code>)</td>
+  </tr><tr>
+    <td>only&nbsp;<code>[tone]+/aug</code></td><td>same as <code>aug[tone]</code>, e.g. <code>C7+</code> = <code>C+7</code></td>
+  </tr><tr>
+    <td><code>N.C.</code>&nbsp;(no chord)</td><td>also allows <code>N.C</code>, <code>n.c.</code> and <code>n.c</code></td>
+  </tr><tr>
+    <td></td><td></td>
+  </tr><tr>
+    <td colspan="2"><b><i>Specials</i></b></td>
+  </tr><tr>
+    <td colspan="2">Chord texts that starts with "<code>(</code>", or if it ends with "<code>)</code>" without any "<code>(</code>" before, will be totally ignored.</td>
+  </tr><tr>
+    <td colspan="2"><code>alt</code>, <code>lyd</code> and for only text in parentheses, e.g. <code>(blues)</code> is just ignored. E.g. <code>Calt</code> will generate a normal <code>C</code>; <code>C-E-G</code>, but the ignored part is shown as "Staff text" above staff #2.</td>
+  </tr><tr>
+    <td></td><td></td>
+  </tr>
+</table>
 
 ## Notes
 
