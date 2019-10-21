@@ -55,13 +55,17 @@ __Allowed synonyms for:__
   </tr><tr>
     <td><code>m</code></td><td>− (Unicode hx2212), -, min, minor</td>
   </tr><tr>
-    <td><code>maj</code></td><td>^, t, Δ, ∆, M, j, ma, major (t only as "alone")</td>
+    <td><code>maj</code></td><td>M, j, ma, major</td>
+  </tr><tr>
+    <td><code>maj(7)</code></td><td>^, Δ, ∆; these means <code>maj7</code> if "alone", otherwise <code>maj</code></td>
+  </tr><tr>
+    <td><code>maj7</code></td><td>t; but only if "alone"</td>
   </tr><tr>
     <td><code>aug</code></td><td>+</td>
   </tr><tr>
     <td><code>dim</code></td><td>° ("degree"), o (low case character)</td>
   </tr><tr>
-    <td><code>0&nbsp;(zero)</code></td><td>Ø, ø</td>
+    <td><code>0</code>&nbsp;(zero)</td><td>Ø, ø</td>
   </tr><tr>
     <td><code>sus4</code></td><td>4, sus</td>
   </tr><tr>
@@ -76,7 +80,7 @@ __Allowed synonyms for:__
   </tr><tr>
     <td><code>#</code></td><td>♯ (Unicode), +, aug</td>
   </tr><tr>
-    <td><code>add</code></td><td>dom, maj (<code>maj</code> is not the same as <code>#</code> according to <a href="https://en.wikipedia.org/wiki/Chord_names_and_symbols_(popular_music)">used Chord rules</a>)</td>
+    <td><code>add</code></td><td>dom, maj (<code>maj</code> is <b>not</b> the same as <code>#</code> according to <a href="https://en.wikipedia.org/wiki/Chord_names_and_symbols_(popular_music)">used Chord rules</a>)</td>
   </tr><tr>
     <td><code>omit</code></td><td>no, drop</td></td>
   </tr><tr>
@@ -171,8 +175,8 @@ These will also show ignored parts of the chord text (if any).
 - __Write Chord letters__  
 Write generated notes as letters, can be a help to easy see what notes are generated. It's written as "lyrics" under staff #2 if used, that is because the measures ought to be stretched to avoid overlaying.  
 `No:`&nbsp; Don't use this.  
-`Yes`: Write real note letters as e.g. `D-F#-A-C#` for `Dmaj7`.  
-`In C-scale` : Write note letters in C-scale, e.g. `C-E-G-B` for `Dmaj7`, to easy recognize the chord.
+`Yes:` Write real note letters as e.g. `D-F#-A-C#` for `Dmaj7`.  
+`In C-scale:` Write note letters in C-scale, e.g. `C-E-G-B` for `Dmaj7`, to easy recognize the chord.
 
 ## Staves for Chord and bass notes
 
