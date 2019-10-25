@@ -1074,6 +1074,7 @@ mo.staffObject = function() {
       // (not implementing german H for B and B for BB for when 'harmonyObj' isn't used)
 
       // extract Bass - if any
+      // (yes, it should be "a-h" here to get german to work)
       if ((strM = harmonyUse.match(/^(.*)?\/([a-h])([b#]*)(.*)$/i))) {
         // (extract key with alt, even if they are replaced from TPC if 'harmonyObj' is used)
                                                           // e.g. "c#maj7/abrubish"
@@ -1101,6 +1102,7 @@ mo.staffObject = function() {
       };
 
       // get root
+      // (yes, it should be "A-Ha-h" here to get german to work)
       if ((strM = harmonyUse.match(/^([A-Ha-h])([b#]*)(.*)$/))) {
         // (extract key with alt, even if they are replaced from TPC if 'harmonyObj' is used)
         // get root with "alt"                            // e.g. "c#maj7add4"
@@ -1807,6 +1809,7 @@ function numToSWSign(n) {
  *                               99:   write unconditionally, with pre string
  *                                     ">>>>>>>>>..."
  * @return {String} the logged String (if done)
+ * If glb.debugLevels includes 999 it writes all!
  * Examples
  *   conLog(44, 'Hey!')
  *   //=> Will write "Hey!" to the log file if 44 is in glb.debugLevels.
@@ -1814,7 +1817,11 @@ function numToSWSign(n) {
  *   //=> Doing 'objectToStr' for 'theObject'.
  */
 function conLog(level) {
-  if (level !== true && level !== 99 && glb.debugLevels.indexOf(level) < 0) return null;
+  //console.log.apply(this, [ "--> ", level, "  indexOf: ", glb.debugLevels.indexOf(level) ]);
+  if (glb.debugLevels.indexOf(999) < 0) {
+    if (level !== true && level !== 99 && glb.debugLevels.indexOf(level) < 0) return null;
+  }
+  //console.log.apply(this, glb.debugLevels);
 
   // 'console.log' is including a " " between all parameters, convert parameters
   // to only one to avoid that (but keeping the code as an alternative though)
@@ -1838,6 +1845,7 @@ function conLog(level) {
       oneArg(arg);
     }
   }
+  str = "[" + level + "] " + str;
   if (useStr) args = [ str ];
   console.log.apply(this, args);
   if (glb.debugFile) log(str + "\n");
